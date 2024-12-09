@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: rhdh-plugins
+  annotations:
+    github.com/project-slug: its-mitesh-kumar/rhdh-plugins
+spec:
+  type: other
+  lifecycle: unknown
+  owner: user:default/its-mitesh-kumar
