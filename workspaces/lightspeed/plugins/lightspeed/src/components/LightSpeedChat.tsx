@@ -519,6 +519,27 @@ export const LightspeedChat = ({
     [t],
   );
 
+  const sortToggle = useCallback(
+    (toggleRef: React.Ref<MenuToggleElement>) => (
+      <Tooltip content={`${t('sort.label')} - ${getSortLabel(selectedSort)}`}>
+        <MenuToggle
+          ref={toggleRef}
+          aria-label={t('sort.label')}
+          variant="plain"
+          onClick={onSortToggle}
+          isExpanded={isSortSelectOpen}
+        >
+          {selectedSort === 'oldest' || selectedSort === 'alphabeticalDesc' ? (
+            <SortAmountDownAltIcon />
+          ) : (
+            <SortAmountDownIcon />
+          )}
+        </MenuToggle>
+      </Tooltip>
+    ),
+    [t, getSortLabel, selectedSort, onSortToggle, isSortSelectOpen],
+  );
+
   const sortDropdown = useMemo(
     () => (
       <Select
@@ -528,26 +549,7 @@ export const LightspeedChat = ({
         onSelect={onSortSelect}
         onOpenChange={(isOpen: boolean) => setIsSortSelectOpen(isOpen)}
         popperProps={{ position: 'end' }}
-        toggle={(toggleRef: React.Ref<MenuToggleElement>) => (
-          <Tooltip
-            content={`${t('sort.label')} - ${getSortLabel(selectedSort)}`}
-          >
-            <MenuToggle
-              ref={toggleRef}
-              aria-label={t('sort.label')}
-              variant="plain"
-              onClick={onSortToggle}
-              isExpanded={isSortSelectOpen}
-            >
-              {selectedSort === 'oldest' ||
-              selectedSort === 'alphabeticalDesc' ? (
-                <SortAmountDownAltIcon />
-              ) : (
-                <SortAmountDownIcon />
-              )}
-            </MenuToggle>
-          </Tooltip>
-        )}
+        toggle={sortToggle}
         shouldFocusToggleOnSelect
       >
         <SelectList className={classes.sortDropdown}>
@@ -566,8 +568,7 @@ export const LightspeedChat = ({
       isSortSelectOpen,
       selectedSort,
       onSortSelect,
-      onSortToggle,
-      getSortLabel,
+      sortToggle,
       t,
       classes.sortDropdown,
     ],
