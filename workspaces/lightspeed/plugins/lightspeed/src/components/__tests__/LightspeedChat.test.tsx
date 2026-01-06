@@ -88,6 +88,18 @@ jest.mock('../../hooks/useTranslation', () => ({
   useTranslation: jest.fn(() => mockUseTranslation()),
 }));
 
+jest.mock('../../hooks/usePinnedChatsSettings', () => ({
+  usePinnedChatsSettings: jest.fn().mockReturnValue({
+    isPinningChatsEnabled: true,
+    pinnedChats: [],
+    selectedSort: 'newest',
+    handlePinningChatsToggle: jest.fn(),
+    pinChat: jest.fn(),
+    unpinChat: jest.fn(),
+    handleSortChange: jest.fn(),
+  }),
+}));
+
 jest.mock('@patternfly/chatbot', () => {
   const actual = jest.requireActual('@patternfly/chatbot');
   return {
