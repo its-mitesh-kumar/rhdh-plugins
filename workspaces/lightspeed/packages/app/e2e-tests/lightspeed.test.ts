@@ -85,7 +85,6 @@ import {
   verifySortDropdownVisible,
   closeSortDropdown,
   verifyConversationsSortedAlphabetically,
-  verifyConversationsOrder,
 } from './utils/chatManagement';
 import { login } from './utils/login';
 import {
