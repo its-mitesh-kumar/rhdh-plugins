@@ -32,19 +32,7 @@ The following are already using `intelligent-assistant` naming:
 | `plugins/lightspeed-backend/` | `plugins/intelligent-assistant-backend/` |
 | `plugins/lightspeed-common/`  | `plugins/intelligent-assistant-common/`  |
 
-Additionally, ~45 source files contain `lightspeed` in their filenames (components, hooks, utils, test files, API reports). These all need renaming:
-
-- `src/api/LightspeedApiClient.ts`
-- `src/components/Lightspeed*.tsx` (12 files)
-- `src/hooks/useLightspeed*.ts(x)` (6 files)
-- `src/lightspeedFABModuleExport.ts`
-- `src/lightspeedTranslationsModuleExport.ts`
-- `src/utils/lightspeed-chatbox-utils.tsx`
-- `e2e-tests/lightspeed.*.test.ts` (5 files)
-- `e2e-tests/pages/LightspeedPage.ts`
-- `e2e-tests/utils/lightspeedE2eSetup.ts`
-- `__fixtures__/lightspeedCoreHandlers.ts`
-- API report files: `report-lightspeed-*.api.md`
+**Internal source file renames are out of scope.** ~45 source files contain `lightspeed` in their filenames (components, hooks, utils, test files, fixtures, API reports). These are internal implementation details not visible to external consumers and will **not** be renamed to avoid a massive diff, loss of git history, and unnecessary churn. Only externally visible identifiers (package names, plugin IDs, scalprum keys, export names, API paths) are renamed.
 
 ---
 
