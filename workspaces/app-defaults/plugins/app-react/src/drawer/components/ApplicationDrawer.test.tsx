@@ -90,6 +90,19 @@ describe('ApplicationDrawer', () => {
     );
   });
 
+  it('renders a flex wrapper that participates in the height chain', () => {
+    const contents: AppDrawerContent[] = [
+      { id: 'test-drawer', element: <div>Content</div> },
+    ];
+    const { container } = renderWithProvider(contents);
+
+    const wrapper = container.firstElementChild as HTMLElement;
+    expect(wrapper.style.display).toBe('flex');
+    expect(wrapper.style.flexDirection).toBe('column');
+    expect(wrapper.style.flex).toBeTruthy();
+    expect(wrapper.style.minHeight).toBe('0');
+  });
+
   it('removes CSS class and variable when drawer is closed', () => {
     const contents: AppDrawerContent[] = [
       { id: 'test-drawer', element: <div>Content</div> },

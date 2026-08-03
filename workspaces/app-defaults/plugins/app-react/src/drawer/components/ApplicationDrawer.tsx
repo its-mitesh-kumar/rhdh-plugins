@@ -16,6 +16,8 @@
 
 import { useEffect, useRef } from 'react';
 
+import Box from '@mui/material/Box';
+
 import { useAppDrawer } from '../hooks/useAppDrawer';
 import { DrawerPanel } from './DrawerPanel';
 import type { AppDrawerContent } from '../types';
@@ -78,17 +80,22 @@ export const ApplicationDrawer = ({
   }, [isOpen, width]);
 
   return (
-    <>
-      <div
-        style={{
-          transition: `margin-right 225ms cubic-bezier(${
-            isOpen ? '0, 0, 0.2, 1' : '0.4, 0, 0.6, 1'
-          })`,
-          marginRight: isOpen ? `${width}px` : undefined,
-        }}
-      >
-        {children}
-      </div>
+    <Box
+      sx={(theme: Record<string, any>) => ({
+        backgroundColor: theme.palette.background.default,
+      })}
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        flex: 1,
+        minHeight: 0,
+        transition: `margin-right 225ms cubic-bezier(${
+          isOpen ? '0, 0, 0.2, 1' : '0.4, 0, 0.6, 1'
+        })`,
+        marginRight: isOpen ? `${width}px` : undefined,
+      }}
+    >
+      {children}
       {contents.length > 0 && (
         <DrawerPanel
           isDrawerOpen={isOpen}
@@ -99,6 +106,6 @@ export const ApplicationDrawer = ({
           {activeContent?.element}
         </DrawerPanel>
       )}
-    </>
+    </Box>
   );
 };
