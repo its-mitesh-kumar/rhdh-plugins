@@ -117,6 +117,7 @@ import {
   getFootnoteProps,
   SortOption,
 } from '../utils/lightspeed-chatbox-utils';
+import { captureScreenshot } from '../utils/screen-capture';
 import Attachment from './Attachment';
 import { useFileAttachmentContext } from './AttachmentContext';
 import { CollapsedHistoryStrip } from './CollapsedHistoryStrip';
@@ -1118,8 +1119,26 @@ export const LightspeedChat = ({
   const [messages, setMessages] =
     useState<MessageProps[]>(conversationMessages);
 
-  const sendMessage = (message: string | number) => {
+  const sendMessage = async (message: string | number) => {
     if (!message.toString().trim()) return;
+
+    // --- TEMP: Test screenshot capture (cherry-pick this commit to test, DO NOT MERGE) ---
+    const captureResult = await captureScreenshot();
+    if (captureResult.success) {
+      const link = document.createElement('a');
+      link.href = `data:${captureResult.contentType};base64,${captureResult.base64}`;
+      link.download = `screenshot-${Date.now()}.${captureResult.contentType === 'image/webp' ? 'webp' : 'jpg'}`;
+      link.click();
+      console.log('Screenshot captured:', {
+        format: captureResult.contentType,
+        size: `${Math.round((captureResult.base64.length * 0.75) / 1024)}KB`,
+        dimensions: `${captureResult.width}x${captureResult.height}`,
+        time: `${captureResult.captureTimeMs}ms`,
+      });
+    } else {
+      console.error('Screenshot failed:', captureResult.error);
+    }
+    // --- END TEMP ---
 
     wasStoppedByUserRef.current = false;
     if (viewConversationId !== TEMP_CONVERSATION_ID) {
