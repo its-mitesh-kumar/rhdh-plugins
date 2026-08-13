@@ -1157,6 +1157,18 @@ export const LightspeedChat = ({
         maxChars: domExtractionMaxChars,
       });
       if (domContext) {
+        // eslint-disable-next-line no-console
+        console.debug('[DOM Extraction]', {
+          chars: domContext.length,
+          content: domContext,
+        });
+        const blob = new Blob([domContext], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `dom-context-${Date.now()}.txt`;
+        a.click();
+        URL.revokeObjectURL(url);
         allAttachments.push({
           attachment_type: 'configuration',
           content_type: 'text/plain',
